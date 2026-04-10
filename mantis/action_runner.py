@@ -97,16 +97,17 @@ def _format_differential_comment(
     if new_crashes:
         lines.append("### 💥 New Crashes")
         for item in new_crashes:
-            lines.append(f"- `{item.probe_name}` — {item.head_error or 'crashed'}")
+            err = item.head_result.error_msg or "crashed"
+            lines.append(f"- `{item.probe_name}` — {err}")
         lines.append("")
 
     if behavioral:
         lines.append("### 🔄 Behavioral Changes")
         for item in behavioral:
             lines.append(f"- `{item.probe_name}`")
-            if item.base_value and item.head_value:
-                lines.append(f"  - Before: `{item.base_value[:100]}`")
-                lines.append(f"  - After: `{item.head_value[:100]}`")
+            if item.base_result.value and item.head_result.value:
+                lines.append(f"  - Before: `{item.base_result.value[:100]}`")
+                lines.append(f"  - After: `{item.head_result.value[:100]}`")
         lines.append("")
 
     if new_fixes:
