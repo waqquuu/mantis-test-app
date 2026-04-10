@@ -16,7 +16,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: waqquuu/Mantis@main
+      - uses: actions/setup-python@v5
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          mode: 'both'
+          python-version: '3.11'
+
+      - name: Install Mantis
+        run: |
+          pip install -r requirements.txt
+          pip install .
+
+      - name: Run Mantis
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          MANTIS_MODE: 'both'
+          MANTIS_DEPTH: '2'
+          MANTIS_TIMEOUT: '120'
+          MANTIS_POST_COMMENT: 'true'
+        run: python mantis/action_runner.py
