@@ -11,6 +11,9 @@ import os
 import sys
 from pathlib import Path
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from mantis.blast_radius import find_blast_radius
 from mantis.diff_parser import parse_diff
 from mantis.reporter import format_github_comment

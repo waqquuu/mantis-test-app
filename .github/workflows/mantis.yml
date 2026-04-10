@@ -25,9 +25,11 @@ jobs:
           pip install -r requirements.txt
           pip install .
 
+      - name: Write API key
+        run: echo "ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}" > .env
+
       - name: Run Mantis
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
           MANTIS_MODE: 'both'
           MANTIS_DEPTH: '2'
