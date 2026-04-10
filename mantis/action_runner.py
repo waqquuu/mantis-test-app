@@ -203,7 +203,9 @@ def main() -> None:
                 _post_comment(repo_full_name, pr_number, body)
 
         except Exception as e:
+            import traceback
             _log(f"::warning::Standard test generation/execution failed: {e}")
+            _log(traceback.format_exc())
 
     # Step 4: Differential mode
     if mode in ("differential", "both"):
@@ -237,7 +239,9 @@ def main() -> None:
                 _post_comment(repo_full_name, pr_number, body)
 
         except Exception as e:
+            import traceback
             _log(f"::warning::Differential testing failed: {e}")
+            _log(traceback.format_exc())
 
     # Step 5: Set result
     if has_regressions:
