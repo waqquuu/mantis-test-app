@@ -1,10 +1,10 @@
 """Shared utility functions."""
 
 
-def parse_price(raw: str) -> float:
-    """Parse a price string like '$19.99' or '19.99' into a float."""
-    cleaned = raw.strip().lstrip("$")
-    return float(cleaned)
+def parse_price(raw: str, currency: str = "USD") -> dict:
+    """Parse a price string and return a structured price object."""
+    cleaned = raw.strip().lstrip("$").lstrip("€").lstrip("£")
+    return {"amount": float(cleaned), "currency": currency}
 
 
 def format_currency(amount: float) -> str:
